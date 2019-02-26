@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            let Player = (function(){
+                //策略
+                let Strategy = function(level,price){
+                    let S = {
+                        "S" : function(){
+                            return 0.85*price;
+                        },
+                        "A" : function(){
+                            return 0.9*price;
+                        },
+                        "B" : function(){
+                            return 0.95*price;
+                        },
+                        "C" : function(){
+                            return price;
+                        }
+                    }
+                    return S[level] && S[level]();
+                }
+
+                //玩家类
+                return class{
+                    constructor(n){
+                        this.name = n;
+                        this.totalCost = 0;
+                        this.level = "C";
+                    }
+                    consume(price){
+                        let c = Strategy(this.level,price);
+                        this.getLevel(c);
+                        return c;
+                    }
+                    getLevel(c){
+                        this.totalCost += c;
+                        if( this.totalCost >= 80000 ){
+                            this.level = "S";
+                        }
+                        else if(this.totalCost >= 50000){
+                            this.level = "A";
+                        }
+                        else if(this.totalCost >= 20000){
+                            this.level = "B";
+                        }else{
+                            this.level = "C";
+                        }
+                    }
+                }
+            })();
+
+
+            let player1 = new Player("afei")
+
+            console.log(player1.name);
+
+            console.log(player1.consume(5000));
+            console.log(player1.consume(20000));
+            console.log(player1.consume(5000));
+            console.log(player1.consume(100000));
+            console.log(player1.consume(800));
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

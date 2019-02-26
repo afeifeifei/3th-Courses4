@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            let Stack = (function(){
+                let sym = Symbol();
+                return class {
+                    constructor(){
+                        this[sym] = [];
+                    }
+                    push(ele){
+                        this[sym].push(ele);
+                    }
+                    pop(){
+                        return this[sym].pop();
+                    }
+                    peek(){
+                        return this[sym][this[sym].length-1];
+                    }
+                    clear(){
+                        this[sym] = [];
+                    }
+                    size(){
+                        return this[sym].length;
+                    }
+                }
+            })();
+
+            // (  [  {
+            // )  ]  }
+            function ifSignMacth(str){
+                //记录左右括号对应符号
+                let leftSign = ["(","[","{"],
+                    rightSign = [")","]","}"];
+                //栈
+                let stack = new Stack();
+                //逐字检测
+                for (let i = 0,len=str.length; i < len; i++) {
+                    let s = str.charAt(i);
+                    //检测是否左括号
+                    if(leftSign.indexOf(s) !== -1){
+                        //入栈
+                        stack.push(s);
+                    }
+                    //检测是否右括号
+                    else if( rightSign.indexOf(s) !== -1 ){
+                        //检测栈顶符号是否和当前符号匹配
+                        if( leftSign.indexOf(stack.pop()) !== rightSign.indexOf(s) ){
+                            return false;
+                        }
+                    }
+                }
+                return stack.size() === 0;
+            }
+
+            console.log(ifSignMacth("){{{}}}"));
+            console.log(ifSignMacth("[](){{{()}}}"));
+            console.log(ifSignMacth("[(){{{()}}}"));
+            console.log(ifSignMacth(`
+                function baseConverter(number,base=2){
+                    let stack = new Stack();
+                    let sign = "0123456789abcdef";
+                    let result = "";
+                    //取所有余数
+                    while ( number > 0 ){
+                        //余数入栈
+                        stack.push( sign[number % base] );
+                        //每次取商
+                        number = Math.floor(number/base);
+                    }
+                    //余数出栈
+                    while (stack.size()){
+                        result += stack.pop();
+                    }
+                    return result;
+                }
+            `));
+
+
+            /*if( leftSign.indexOf(stack.peek()) === rightSign.indexOf(s) ){
+                            stack.pop();
+                        }else{
+                            return false;
+                        }*/
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

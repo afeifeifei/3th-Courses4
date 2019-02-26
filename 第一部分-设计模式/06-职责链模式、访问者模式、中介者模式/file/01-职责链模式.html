@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            function request(money){
+                if( money<=10000 ){
+                    console.log("部门负责人审批");
+                    //code……
+                }else if( money<=50000 ){
+                    console.log("院负责人审批");
+                    //code……
+                }else if(money<=100000){
+                    console.log("群负责人审批");
+                    //code……
+                }else if(money>100000){
+                    console.log("董事长来审批");
+                    //code……
+                }
+            }
+
+            request(5);
+            request(5000);
+            request(15000);
+            //……
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

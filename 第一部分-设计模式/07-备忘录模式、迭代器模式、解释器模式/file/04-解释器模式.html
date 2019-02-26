@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            //调用，传入对应的文法
+            //console.log( createDOM("p{朱雀}*9") );
+            let oWrap = document.getElementById("wrap");
+            oWrap.appendChild( createDOM("p{朱雀}*9") );
+
+            //解释器，解析文法，达到目的
+            function createDOM(str) {
+                //定义集合
+                let frag = document.createDocumentFragment();
+                //去掉所有的空格
+                let arr =str.replace(/ /g,"").match(/(([a-z])+(\{(.+?)\})?)\*?(\d*)/i);
+                let tagName = arr[2];
+                let tagText = arr[4]||"";
+                let tagNum = (arr[5]||1)-0;
+                for(let i=0;i<tagNum;i++){
+                    let ele = document.createElement(tagName);
+                    ele.innerText = tagText;
+                    frag.appendChild(ele);
+                }
+                //返回集合
+                return frag;
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+
+    <script>
+
+
+
+
+        let HashTable = (function(){
+            let symbol = Symbol();
+
+            //用于哈希表的链表
+            let LinkedList = (function(){
+                //避免外部访问
+                let HEAD = Symbol();
+                //存储数据与next节点的类
+                class Node{
+                    constructor(data){
+                        this.data = data;
+                        this.next = null;
+                    }
+                }
+                //类
+                return class{
+                    constructor(){
+                        //链头
+                        this[HEAD] = null;
+                    }
+                    //追加数据
+                    append(data){
+                        //创建对应的链节点
+                        let node = new Node(data);
+                        //获取链头
+                        let head = this[HEAD];
+                        if( head === null ){
+                            //如果链头是null
+                            this[HEAD] = node;
+                            return;
+                        }else{
+                            //如果不是链头，循环找到链尾
+                            while(true){
+                                if( head.data.key === data.key ){
+                                    head.data.value = data.value;
+                                    return;
+                                }
+                                if( head.next !== null ){
+                                    head = head.next;
+                                }else{
+                                    break;
+                                }
+                            }
+                            head.next = node;
+                        }
+                    }
+                    //取值
+                    find(index){
+                        let head = this[HEAD];
+                        let i = 0;
+                        while (head){
+                            if( i === index )return head;
+                            head = head.next;
+                            i ++;
+                        }
+                        return null;
+                    }
+                    //移除
+                    remove(index){
+                        //当前index所对应的前后node
+                        let nodeB = this.find(index-1),
+                            nodeA = this.find(index+1);
+                        if( index === 0 ){
+                            this[HEAD] = nodeA;
+                        }else{
+                            nodeB && (nodeB.next = nodeA);
+                        }
+                    }
+                    //长度
+                    size(){
+                        let i =0,
+                            head = this[HEAD];
+                        while (head){
+                            head = head.next;
+                            i++;
+                        }
+                        return i;
+                    }
+                    //返回头
+                    getHead(){
+                        return this[HEAD];
+                    }
+                }
+            })();
+
+            //哈希函数
+            function HASH(key){
+                let hash = 0;
+                [...key].forEach(s=>{
+                    hash += s.charCodeAt(0);
+                });
+                return hash % 37;
+            }
+
+            //用于链表存值的类
+            class ValuePair{
+                constructor(key,value){
+                    this.key = key;
+                    this.value = value;
+                }
+            }
+
+            //类
+            return class{
+                constructor(){
+                    this[symbol] = [];
+                }
+                set(key,value){
+                    let hash = HASH(key);
+                    if( !this[symbol][hash] ){
+                        this[symbol][hash] = new LinkedList;
+                    }
+                    this[symbol][hash].append(new ValuePair(key,value));
+                }
+                get(key){
+                    let hash = HASH(key);
+                    let link = this[symbol][hash];
+                    if(!link)return undefined;
+                    let head = link.getHead();
+                    while (head){
+                        if( head.data.key === key ){
+                            return head.data.value;
+                        }
+                        head = head.next;
+                    }
+                    return undefined;
+                }
+            }
+        })();
+
+
+        let hash = new HashTable;
+
+        hash.set("afei" , "789")
+        hash.set("zhuque" , "123")
+        hash.set("xinai" , "234")
+        hash.set("afei" , "159")
+        hash.set("quezhu" , "321")
+
+        console.log(hash);
+        //console.log(hash.get("xinai"));
+
+        console.log(hash.get("xinai"));
+        console.log(hash.get("quezhu"));
+        console.log(hash.get("afei"));
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

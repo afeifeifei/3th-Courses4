@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+    
+    <script>
+
+        function radixSort (arr) {
+            let len = arr.length;
+            //找出数组中最大数的位数
+            let maxNum = arr[0];
+            let radixArr = [];
+            for(let i = 1; i < len; i++) {
+                if( arr[i] > maxNum ){
+                    maxNum = arr[i];
+                }
+            }
+            let maxDigit = maxNum.toString().length;
+
+            let x = 10,y = 1;
+            for(let i = 0; i < maxDigit; i++) {
+                for(let j = 0; j < len; j++) {
+                    let v = Math.floor(arr[j] % x / y);
+                    if( !radixArr[v] )radixArr[v] = [];
+                    radixArr[v].push(arr[j]);
+                }
+                x *= 10;
+                y *= 10;
+
+                let index = 0;
+                for(let j = 0,len = radixArr.length; j <len ; j++) {
+                    let item = radixArr[j];
+                    if(!item)continue;
+                    item.forEach(v=>{
+                        arr[index ++] = v;
+                    });
+                }
+                radixArr = [];
+            }
+        }
+
+        let arr = [8898,456,123,12,7,9,56,23,456];
+        radixSort( arr );
+        console.log(arr);
+    </script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            let Command = (function(){
+                let cmdList = {
+                    afei(msg){
+                        let div = document.createElement("div")
+                        div.className = "afei";
+                        div.innerHTML = msg || "";
+                        document.body.appendChild(div);
+                    },
+                    wulv(msg={}){
+                        let div = document.createElement("a")
+                        div.className = "wulv";
+                        div.href = msg.href || "";
+                        div.innerHTML = msg.text || "";
+                        document.body.appendChild(div);
+                    },
+                    zhuque(msg){
+                        console.log("朱雀雀"+msg);
+                    },
+                    xinai(msg){
+                        document.documentElement.scrollTop += 50;
+                    }
+                }
+                return class{
+                    constructor(){
+                        this.data = [];
+                    }
+                    exe(data){
+                        this.data = [...this.data,...data];
+                        data.forEach(v=>{
+                            cmdList[v.command] && cmdList[v.command](v.parma);
+                        });
+                    }
+                    addCmd(key,action){
+                        cmdList[key] = action;
+                    }
+                    removeCmd(key){
+                        delete cmdList[key];
+                    }
+                }
+            })();
+
+
+            let cmd = new Command();
+            cmd.addCmd("zhaoge",function(msg){
+                alert( "朝歌命令" );
+            });
+            cmd.exe([
+                {command:"afei",parma:"第一条命令"},
+                {command:"zhuque",parma:"第二条命令"},
+                {command:"wulv",parma:{href:"http://www.tanzhouedu.com",text:"潭州教育"}},
+                {command:"afei",parma:"第四条命令"},
+                {command:"zhaoge",parma:""}
+            ]);
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

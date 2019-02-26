@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            二叉搜索树
+                左侧存储比父级小的值，右侧存储比父级大的值
+             */
+
+            let BST = (function(){
+                let root = Symbol();
+
+                //创建对应的类 来存储左右节点和自身
+                class Node{
+                    constructor(key){
+                        this.key = key;
+                        this.left = null;
+                        this.right = null;
+                    }
+                }
+
+                //用于插入的递归函数
+                function insertNode(root , node){
+                    if( node.key < root.key  ){
+                        if( root.left ){
+                            insertNode(root.left,node);
+                        }else{
+                            root.left = node;
+                        }
+                    }else{
+                        if( root.right ){
+                            insertNode(root.right,node);
+                        }else{
+                            root.right = node;
+                        }
+                    }
+                }
+
+                //用于中序遍历的递归函数
+                function inOrderTraverseNode(root,arr) {
+                    if( !root )return;
+                    inOrderTraverseNode(root.left,arr);
+                    arr.push(root.key);
+                    inOrderTraverseNode(root.right,arr);
+                }
+
+                return class{
+                    constructor(){
+                        this[root] = null;
+                    }
+                    insert(key){
+                        let node = new Node(key)
+                        let Root = this[root];
+                        if( !Root ){
+                            this[root] = node;
+                        }else{
+                            insertNode(Root ,  node);
+                        }
+                    }
+                    inOrderTraverse(){
+                        let arr = [];
+                        inOrderTraverseNode(this[root],arr);
+                        return arr;
+                    }
+                }
+            })();
+
+            let bst = new BST;
+
+            bst.insert(20);
+
+            bst.insert(8);
+            bst.insert(6);
+            bst.insert(25);
+            bst.insert(30);
+            bst.insert(28);
+            bst.insert(4);
+            bst.insert(9);
+            bst.insert(12);
+            bst.insert(11);
+            bst.insert(10);
+            bst.insert(7);
+            bst.insert(5);
+            bst.insert(27);
+            bst.insert(21);
+            bst.insert(43);
+            bst.insert(99);
+            bst.insert(1);
+
+            console.log(bst);
+
+            /*
+            * 遍历： 中序遍历  先序遍历  后序遍历
+            * */
+
+            console.log(bst.inOrderTraverse());
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

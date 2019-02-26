@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            let Stack = (function(){
+                let sym = Symbol();
+                return class {
+                    constructor(){
+                        this[sym] = [];
+                    }
+                    push(ele){
+                        this[sym].push(ele);
+                    }
+                    pop(){
+                        return this[sym].pop();
+                    }
+                    peek(){
+                        return this[sym][this[sym].length-1];
+                    }
+                    clear(){
+                        this[sym] = [];
+                    }
+                    size(){
+                        return this[sym].length;
+                    }
+                }
+            })();
+
+            /*
+            判断回文字符串
+             */
+            function isP(word){
+                let stack = new Stack();
+                let result = "";
+                //字符逐个入栈
+                [...word].forEach(v=>{
+                    stack.push(v);
+                });
+                //出栈，组成新的字符串
+                while (stack.size()){
+                    result += stack.pop();
+                }
+                return result === word;
+            }
+
+            console.log(isP("123456"));
+            console.log(isP("上海自来水来自海上"));
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

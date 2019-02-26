@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+    
+    <script>
+
+        let arr = [4,5,6,8,2,3,1,5];
+
+        /*
+        冒泡排序
+            稳定性：稳定
+         */
+
+        function bubbleSort (arr) {
+            let len = arr.length;
+            //要进行多少轮排序
+            for(let i = 0; i < len-1; i++) {
+                //每一轮，相邻两位进行比较，大的放后面
+                for(let j = 0; j < len-1-i ; j++) {
+                    if( arr[j] > arr[j+1] ){
+                        swap(arr,j,j+1);
+                    }
+                }
+            }
+        }
+        function swap(arr,i,j){
+            let tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+
+        bubbleSort(arr);
+
+        console.log(arr);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

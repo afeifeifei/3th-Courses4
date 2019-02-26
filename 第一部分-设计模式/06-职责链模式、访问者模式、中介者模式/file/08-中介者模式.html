@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+//玩家类
+class Player{
+    constructor(name,team){
+        //自己需要存储的信息
+        this.name = name;
+        this.team = team;
+        this.live = true;
+
+        //其他信息（队友、敌人等）全部交由中介者来处理
+        playerMediator.addPlayer(this);
+    }
+    //胜利
+    win(){
+        console.log(this.name + "胜利了！");
+    }
+    //失败
+    lose(){
+        console.log(this.name + "失败了！");
+    }
+    //死亡
+    die(){
+        //自身存活状态的改变
+        this.live = false;
+        //告知中介者，做后续处理
+        playerMediator.playerDie(this);
+    }
+}
+
+//中介者
+let playerMediator = (function(){
+    //队伍玩家信息
+    let teamInfo = {};
+    //接口
+    return {
+        //浏览所有队伍信息
+        reviewInfo(){
+            console.log(teamInfo);
+        },
+        //玩家加入
+        addPlayer(player){
+            if( !teamInfo[player.team] ){
+                teamInfo[player.team] = [];
+            }
+            teamInfo[player.team].push(player);
+        },
+        //玩家阵亡
+        playerDie(player){
+            //玩家属于那一队
+            let team = player.team;
+            //检测队伍是否全部阵亡
+            let ifAllDie = true;
+            for (let i = 0; i < teamInfo[team].length; i++){
+                if( teamInfo[team][i].live ){
+                    ifAllDie = false;
+                    break;
+                }
+            }
+
+            //假设全部阵亡
+            if( ifAllDie ){
+                //该队触发lose信息
+                teamInfo[team].forEach(p=>{
+                    p.lose();
+                });
+                teamInfo[team].lose = true;
+                //检测是否只剩下一队
+                let liveTeam = [];
+                for (let v of Object.values(teamInfo)) {
+                    if( !v.lose ){
+                        liveTeam.push(v);
+                    }
+                }
+                if( liveTeam.length === 1 ){
+                    liveTeam[0].forEach(p=>{
+                        p.win();
+                    })
+                }
+            }
+        }
+    };
+})();
+
+
+let p1 = new Player("阿飞","red");
+let p2 = new Player("朱雀","red");
+let p3 = new Player("心艾","green");
+let p4 = new Player("乌拉","green");
+let p5 = new Player("冰冰","green");
+let p6 = new Player("言心","blue");
+let p7 = new Player("茜茜","blue");
+let p8 = new Player("桃子","blue");
+
+
+playerMediator.reviewInfo();
+
+p6.die()
+p7.die()
+p8.die()
+
+p3.die()
+p4.die()
+p5.die()
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

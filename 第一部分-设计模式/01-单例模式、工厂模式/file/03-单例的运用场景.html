@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            自定义右下角弹窗功能
+             */
+            let Popup = (function(){
+                let ins = null;
+                return class{
+                    constructor(text){
+                        //如果已经被实例过
+                        if(ins){
+                            ins.ele.innerText = text;
+                            return ins;
+                        }
+                        //如果没有被实例过
+                        ins = this;
+                        this.ele = document.createElement("div");
+                        this.ele.style.cssText = "position:fixed;bottom:-300px;right:0;z-index:999999999999999;width:260px;height:110px;padding:20px;background-color:#eee;box-shadow:0 0 2px #000;transition:bottom .5s;user-select:none;-moz-user-select:none;";
+                        this.ele.innerText = text;
+
+                    }
+                    show(){
+                        this.ele.parentNode && document.body.removeChild(this.ele);
+                        document.body.appendChild(this.ele);
+                        this.ele.offsetLeft;
+                        this.ele.style.bottom = "0px";
+                        setTimeout(()=>{
+                            document.body.removeChild(this.ele);
+                            this.ele.style.bottom = "-300px";
+                        },2000)
+                    }
+                }
+            })();
+
+
+
+            new Popup("阿飞").show()
+            //new Popup("乌拉").show()
+
+            document.onclick = function(){
+                new Popup("乌拉").show()
+            }
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            //双向队列
+            let Queue = (function(){
+                let symbol = Symbol();
+                return class{
+                    constructor(){
+                        this[symbol] = [];
+                    }
+                    //从前面入队
+                    enqueueFront(ele){
+                        this[symbol].unshift(ele);
+                    }
+                    //从后面入队
+                    enqueueBack(ele){
+                        this[symbol].push(ele);
+                    }
+                    //从列首出队
+                    dequeueFront(){
+                        return this[symbol].shift();
+                    }
+                    //从列尾出队
+                    dequeueBack(){
+                        return this[symbol].pop();
+                    }
+                    //返回列首数据，不删除
+                    front(){
+                        return this[symbol][0];
+                    }
+                    //返回列尾数据，不删除
+                    back(){
+                        return this[symbol][this.size()-1];
+                    }
+                    //返回队列长度
+                    size(){
+                        return this[symbol].length;
+                    }
+                    //清空队列
+                    clear(){
+                        this[symbol] = [];
+                    }
+                    //按照从前到后顺序打印数据
+                    print(){
+                        this[symbol].forEach(v=>{
+                            console.log(v);
+                        });
+                    }
+                }
+            })();
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

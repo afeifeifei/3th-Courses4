@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            #wrap{
+                width: 100px;
+                height: 30px;
+                background-color: pink;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+
+        <div class="goudan"></div>
+
+        <script>
+            /*function addEvent(obj,eName,eFn){
+                obj.addEventListener(eName,eFn);
+            }
+            function ajax(type,url,cb){
+                $.ajax({
+                    type,
+                    url,
+                    success : function(msg){
+                        cb(msg);
+                    }
+                });
+            }
+
+
+            let oWrap = document.getElementById("wrap")
+
+            addEvent(oWrap,"click",eFn);
+            function eFn(){
+                let id = this.id;
+                ajax("get","http://47.102.7.19/" + this.id,function(){
+                    //code……
+                });
+            }
+
+
+            {
+                index : "box"
+            }*/
+
+            function ajax(type,url,cb){
+
+            }
+
+            //1
+            let oWrap = document.getElementById("wrap");
+            oWrap.onclick = eFn;
+            function eFn(e){
+                let id = this.id;
+                id+=e.target.nodeName;
+
+                //ajax("get","http://xxx"+id,function(){});
+                getUrl(id)
+            };
+
+            //2
+            let oGoudan = document.querySelector(".goudan");
+            oGoudan.onclick = gFn;
+            function gFn(){
+                let c = this.className;
+
+                //ajax("get","http://xxx"+c,function(){});
+                getUrl(c)
+            }
+
+
+            function getUrl(u){
+                ajax("get","http://xxx"+u,function(){});
+            }
+
+
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

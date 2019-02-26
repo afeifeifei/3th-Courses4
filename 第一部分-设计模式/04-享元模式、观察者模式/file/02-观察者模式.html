@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        <script>
+
+
+            /*class Observer{
+                constructor(){
+                    this.items = [];
+                }
+                on(cb){
+                    this.items.push(cb);
+                }
+                emit(){
+                    this.items.forEach(fn=>{
+                        fn();
+                    });
+                }
+            }
+
+            //实例
+            let obs = new Observer()
+            //订阅
+            obs.on(function(){
+                console.log(1);
+            });
+            obs.on(function(){
+                console.log(2);
+            });
+            //发布
+            setTimeout(()=>{
+                obs.emit();
+            },5000)*/
+
+            class Observer{
+                constructor(){
+                    this.items = {};
+                }
+                //订阅
+                on(name,cb){
+                    if( !this.items[name] )this.items[name] = [];
+                    this.items[name].push(cb);
+                }
+                //退订
+                off(name,cb){
+                    if( !this.items[name] )return;
+                    let index = this.items[name].indexOf(cb);
+                    if( index === -1 )return;
+                    this.items[name].splice(index,1);
+                }
+                //发布
+                emit(name,msg){
+                    if(!this.items[name])return;
+                    this.items[name].forEach(fn=>{
+                        fn(msg);
+                    });
+                }
+            };
+
+            //实例 - 订阅主播
+            let obs = new Observer();
+
+            //订阅
+            obs.on("zhuque",zq1);
+            obs.on("zhuque",zq2);
+            function zq1(msg){
+                console.log("1:朱雀开播了！因为我订阅了，所以当朱雀开播的时候，会打印这条信息"+"同时附带的传过来的信息："+msg);
+            }
+            function zq2(msg){
+                console.log("2:卧槽，雀雀开播了！");
+            }
+
+            obs.off("zhuque",zq1);
+
+            //发布
+            document.onclick = function(){
+                obs.emit("zhuque",123);
+            }
+
+
+            /*//订阅操作1
+            obs.on("zhuque" , function(msg){
+                console.log("1:朱雀开播了！因为我订阅了，所以当朱雀开播的时候，会打印这条信息"+"同时附带的传过来的信息："+msg);
+            });
+            obs.on("zhuque" , function(msg){
+                console.log("2:卧槽，雀雀开播了！");
+            });
+            obs.on("wulv",function(msg){
+                console.log("我订阅了无虑老师");
+            });
+
+            document.onclick = function(){
+                obs.emit("zhuque",123);
+            }*/
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

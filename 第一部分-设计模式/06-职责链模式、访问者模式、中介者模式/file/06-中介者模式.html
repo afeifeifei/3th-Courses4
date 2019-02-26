@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            //玩家类
+            class Player{
+                constructor(n){
+                    this.name = n;
+                    this.enemy = null;
+                }
+                //胜利
+                win(){
+                    console.log(this.name + "胜利了！");
+                }
+                //失败
+                lose(){
+                    console.log(this.name + "失败了！");
+                }
+                //死亡后触发函数
+                die(){
+                    this.lose();
+                    this.enemy.win();
+                }
+            }
+
+
+            let player1 = new Player("阿飞");
+            let player2 = new Player("朱雀");
+
+            player1.enemy = player2;
+            player2.enemy = player1;
+
+
+
+            player1.die();
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

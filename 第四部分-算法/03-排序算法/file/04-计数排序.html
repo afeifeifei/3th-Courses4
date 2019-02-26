@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+    
+    <script>
+        /*
+        适用于：
+            正整数 和 0
+            最大值不是特别大
+         */
+
+        function countSort (arr) {
+            let count = [];
+            arr.forEach(item=>{
+                if(!count[item])count[item] = 0;
+                count[item] ++;
+            });
+
+            let j=0;
+            count.forEach((item,i)=>{
+                while ( item > 0 ){
+                    arr[j] = i;
+                    item --;
+                    j ++;
+                }
+            });
+        }
+
+
+        let arr = [1,2,4,5,5,5,1,4,2,3,4,9,8,7,6,2,2];
+
+        countSort(arr);
+        console.log(arr);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

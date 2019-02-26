@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+        p{
+            margin: 10px 10px;
+        }
+        span{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <h3>我朱雀雀今天要吃水果！</h3>
+        <p class="buy">
+            买：
+            <input type="button" value="买个苹果">
+            <input type="button" value="买个梨子">
+        </p>
+        <p class="eat">
+            吃：
+            <input type="button" value="吃个苹果">
+            <input type="button" value="吃个梨子">
+        </p>
+        <p class="count">
+            <b>朱雀雀还剩：</b>
+            <span>0</span>个苹果，
+            <span>0</span>个梨子。
+        </p>
+        <p class="total">
+            <b>朱雀雀总共还有：</b>
+            <span>0</span>个水果。
+        </p>
+    </div>
+
+    <script>
+
+        //获取DOM
+        let aBuy = document.querySelectorAll(".buy input"),
+            aEat = document.querySelectorAll(".eat input"),
+            aCount = document.querySelectorAll(".count span"),
+            oTotal = document.querySelector(".total span")
+        ;
+
+        //定义变量来计数
+        let nApple = 0, //苹果计数
+            nPear = 0; //例子计数
+
+        //单独提取出事件
+        function changeHTML(i){
+            aCount[i].innerText = i?nPear:nApple;
+            oTotal.innerText = nApple+nPear;
+        }
+
+        //点事件的注册
+        //买
+        [...aBuy].forEach((v,i)=>{
+            v.onclick = function(){
+                i?nPear++:nApple++;
+
+                //调用改变html结构的函数
+                changeHTML(i);
+            };
+        });
+        //吃
+        [...aEat].forEach((v,i)=>{
+            v.onclick = function(){
+                i?nPear--:nApple--;
+                if( nPear < 0 ){
+                    nPear = 0;
+                    alert("都没了还吃！！！胖死你！！");
+                }
+                if( nApple < 0 ){
+                    nApple = 0;
+                    alert("都没了还吃！！！胖死你！！");
+                }
+
+                //调用改变html结构的函数
+                changeHTML(i);
+            };
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

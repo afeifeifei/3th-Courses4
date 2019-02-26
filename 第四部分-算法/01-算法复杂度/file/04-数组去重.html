@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+
+    <script>
+
+        let arr = [1,2,4,5,5,86,4,2,1,1,3,76,86,9,2,1,2,5];
+
+        /*function x(arr){
+            for(let i=0,len = arr.length;i<len;i++){
+                let item = arr[i];
+                for(let j=len;j>i;j--){
+                    if(item === arr[j]){
+                        arr.splice(j,1);
+                    }
+                }
+            }
+        }
+        x(arr);
+        console.log(arr);
+        //O(n^2)*/
+
+        function x(arr){
+            let y = [];
+            for(let i=0;i<arr.length;i++){
+                let item = arr[i];
+                if(y[item]){
+                    arr.splice(i,1);
+                    i --;
+                } else{
+                    y[item] = true;
+                }
+            }
+        }
+        x(arr);
+        console.log(arr);
+        //O(n)
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

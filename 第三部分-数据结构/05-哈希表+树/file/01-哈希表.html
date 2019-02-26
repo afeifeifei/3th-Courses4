@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+
+    <script>
+
+        let HashTable = (function(){
+            let symbol = Symbol();
+
+            //哈希函数
+            function HASH(key){
+                let hash = 0;
+                [...key].forEach(s=>{
+                    hash += s.charCodeAt(0);
+                });
+                return hash % 37;
+            }
+
+            //用于存值的类
+            class ValuePair{
+                constructor(key,value){
+                    this.key = key;
+                    this.value = value;
+                }
+            }
+
+            //类
+            return class{
+                constructor(){
+                    this[symbol] = [];
+                }
+                set(key,value){
+                    let hash = HASH(key);
+                    let H = hash;
+                    while( this[symbol][hash] ){
+                        //辨别是否key值相等
+                        if( key === this[symbol][hash].key ){
+                            this[symbol][hash].value = value;
+                            return;
+                        }
+                        hash ++;
+                        hash %= 37;
+                        if( hash === H ){
+                            throw new Error("哈希表已满！");
+                        }
+                    }
+                    this[symbol][hash] = new ValuePair(key,value);
+                }
+                get(key){
+                    let hash = HASH(key);
+                    let H = hash;
+                    if( !this[symbol][hash] )return undefined;
+                    while (this[symbol][hash]){
+                        if( this[symbol][hash].key === key ){
+                            return this[symbol][hash].value;
+                        }
+                        hash ++;
+                        hash %= 37;
+                        if( H === hash )return undefined;
+                    }
+                    return undefined;
+                }
+            }
+        })();
+
+
+        let hash = new HashTable;
+
+        hash.set("afei" , "789")
+        hash.set("feia" , "51189")
+        hash.set("feib" , "78952")
+        hash.set("zhuque" , "123")
+        hash.set("xinai" , "234")
+        hash.set("afei" , "159")
+        hash.set("quezhu" , "321")
+
+        console.log(hash);
+        //console.log(hash.get("xinai"));
+
+        console.log(hash.get("xinai"));
+        console.log(hash.get("quezhu"));
+        console.log(hash.get("afei"));
+        console.log(hash.get("feib"));
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

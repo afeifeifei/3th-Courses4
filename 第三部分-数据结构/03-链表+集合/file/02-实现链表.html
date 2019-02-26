@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            添加节点 append
+            查找节点 find
+            指定数据后面添加节点 insert
+            移除指定数据对应的节点 remove
+            打印链 print
+            返回链长度 size
+             */
+
+            let LinkedList = (function(){
+                //避免外部访问
+                let HEAD = Symbol();
+
+                //存储数据与next节点的类
+                class Node{
+                    constructor(data){
+                        this.data = data;
+                        this.next = null;
+                    }
+                }
+
+                //类
+                return class{
+                    constructor(){
+                        //链头
+                        this[HEAD] = null;
+                    }
+                    //追加数据
+                    append(data){
+                        //创建对应的链节点
+                        let node = new Node(data);
+                        //获取链头
+                        let head = this[HEAD];
+                        if( head === null ){
+                            //如果链头是null
+                            this[HEAD] = node;
+                            return;
+                        }else{
+                            //如果不是链头，循环找到链尾
+                            while(head.next !== null){
+                                head = head.next;
+                            }
+                            head.next = node;
+                        }
+                    }
+                    //取值
+                    find(index){
+                        let head = this[HEAD];
+                        let i = 0;
+                        while (head){
+                            if( i === index )return head;
+                            head = head.next;
+                            i ++;
+                        }
+                        return null;
+                    }
+                    //插入
+                    insert(index,data){
+                        //新的node
+                        let newNode = new Node(data);
+                        //当前index所对应的前后node
+                        let nodeBefore,
+                            nodeAfter = this.find(index);
+
+                        //考虑index=0的情况
+                        if( index === 0 ){
+                            this[HEAD] = newNode;
+                        }else{
+                            nodeBefore = this.find(index-1);
+                        }
+                        nodeBefore && (nodeBefore.next = newNode);
+                        newNode.next = nodeAfter;
+                    }
+                    //移除
+                    remove(index){
+                        //当前index所对应的前后node
+                        let nodeB = this.find(index-1),
+                            nodeA = this.find(index+1);
+                        if( index === 0 ){
+                            this[HEAD] = nodeA;
+                        }else{
+                            nodeB && (nodeB.next = nodeA);
+                        }
+                    }
+                    //打印
+                    print(){
+                        let head = this[HEAD];
+                        while (head){
+                            console.log(head.data);
+                            head = head.next;
+                        }
+                    }
+                    //长度
+                    size(){
+                        let i =0,
+                            head = this[HEAD];
+                        while (head){
+                            head = head.next;
+                            i++;
+                        }
+                        return i;
+                    }
+                }
+            })();
+
+            let linked = new LinkedList;
+
+            linked.append("阿飞");
+            linked.append("心艾");
+            linked.append("朱雀");
+            linked.append("言心");
+
+            linked.insert(1,"朝歌");
+            console.log(linked);
+            console.log(linked.find(0));
+
+            document.onclick = function(){
+                linked.remove(1);
+                linked.print();
+                console.log(linked.size());
+            }
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

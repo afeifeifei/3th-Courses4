@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+            let Queue = (function(){
+                let symbol = Symbol();
+
+                //用来丰富存储的数据
+                class Priority{
+                    constructor(ele,pri){
+                        this.ele = ele;
+                        this.pri = pri;
+                    }
+                }
+
+                return class{
+                    constructor(){
+                        this[symbol] = [];
+                    }
+                    enqueue(ele,pri){
+                        let node = new Priority(ele,pri);
+                        let i =0;
+                        while (i<this.size()){
+                            if( this[symbol][i].pri < pri )break;
+                            i++;
+                        }
+                        this[symbol].splice(i,0,node);
+                    }
+                    dequeue(){
+                        return this[symbol].shift().ele;
+                    }
+                    first(){
+                        return this[symbol][0].ele;
+                    }
+                    clear(){
+                        this[symbol] = [];
+                    }
+                    size(){
+                        return this[symbol].length;
+                    }
+                    print(){
+                        while (this.size())
+                            console.log( this.dequeue());
+                    }
+                }
+            })();
+
+
+            let queue = new Queue();
+            queue.enqueue("阿飞",1);
+            queue.enqueue("朱雀",2);
+            queue.enqueue("乌拉",2);
+            queue.enqueue("心艾",1);
+            queue.enqueue("朝歌",5);
+
+            console.log(queue.dequeue());
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+
+    <script>
+
+
+        let Shop = (function(){
+            let s = {
+                Steak(){
+                    this.price = 30;
+                    this.time = 20;
+                },
+                Grill(){
+                    this.price = 20;
+                    this.time = 15;
+                },
+                Noodles(){
+                    this.price = 15;
+                    this.time = 10;
+                },
+                Rice(){
+                    this.price = 8;
+                    this.time = 5;
+                },
+                Malatang(){
+                    this.price = 25;
+                    this.time = 15;
+                }
+            };
+            return class{
+                constructor(w){
+                    this._name = w;
+                    try {
+                        s[w].call(this);
+                    }catch (e) {
+                        throw new Error("需要的餐点不提供");
+                    }
+                }
+                done(){
+                    console.log(this._name+"制作完成，价格" + this.price + "，耗时" + this.time);
+                }
+            }
+        })();
+
+
+        //实例
+        let a = new Shop("Noodles");
+        let b = new Shop("Rice");
+        let c = new Shop("Malatang");
+
+        a.done();
+        b.done();
+        c.done();
+
+
+
+
+        /*
+        //阿飞老师摆摊卖小吃了！!
+        //开个对外的窗口
+        function shop(w){
+            //牛排
+            class Steak{
+                constructor(){
+                    this.price = 30;
+                    this.time = 20;
+                }
+                done(){
+                    console.log("Steak制作完成，价格" + this.price + "，耗时" + this.time);
+                }
+            }
+
+            //烧烤
+            class Grill{
+                constructor(){
+                    this.price = 20;
+                    this.time = 15;
+                }
+                done(){
+                    console.log("Grill制作完成，价格" + this.price + "，耗时" + this.time);
+                }
+            }
+
+            //面条
+            class Noodles{
+                constructor(){
+                    this.price = 15;
+                    this.time = 10;
+                }
+                done(){
+                    console.log("Noodles制作完成，价格" + this.price + "，耗时" + this.time);
+                }
+            }
+
+            //炒饭
+            class Rice{
+                constructor(){
+                    this.price = 8;
+                    this.time = 5;
+                }
+                done(){
+                    console.log("Rice制作完成，价格" + this.price + "，耗时" + this.time);
+                }
+            }
+
+            let o = null;
+            switch (w) {
+                case "Steak":
+                    o = new Steak()
+                    break;
+                case "Grill":
+                    o = new Grill()
+                    break;
+                case "Noodles":
+                    o = new Noodles()
+                    break;
+                case "Rice":
+                    o = new Rice()
+                    break;
+            }
+            return o;
+        }
+
+
+        let a = shop("Steak");
+        let b = shop("Grill");
+        let c = shop("Noodles");
+        a.done();
+        */
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+
+        <script>
+
+            /*
+            单例
+                不管类实例化多少次，得到的结果都是同一个实例
+            */
+
+
+            /*class F{
+                constructor(){
+
+                    return {x:50};
+                }
+                a(){}
+                b(){}
+            }*/
+            let F = (function(){
+                let ins = null;
+
+                return class{
+                    constructor(){
+                        if(ins)return ins;
+                        ins = this;
+                        //code……
+
+                        /*if( ins ){
+                            return ins;
+                        }else{
+                            ins = this;
+                        }
+
+                        //code……
+                        */
+                    }
+                    //prototype……
+                }
+            })();
+
+            let a = new F();
+            let b = new F();
+
+            //console.log(b);
+            console.log(a === b);
+
+
+            /*class Afei{
+                constructor(name,age,sex) {
+                    this.name = name;
+                    this.age = age;
+                    this.sex = sex;
+                }
+                showName(){
+                    alert(this.name)
+                }
+                showAge(){
+                    alert(this.age)
+                }
+                showSex(){
+                    alert(this.sex)
+                }
+            }
+
+            let a = new Afei("阿飞",18,"男")
+            let b = new Afei("阿飞",18,"男")
+
+            console.log(a === b);*/
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*class ClassInfo{
+                constructor(id,name,sex,time){
+                    this.id = id;
+                    this.name = name;
+                    this.sex = sex;
+                    this.time = time;
+                }
+                print(){
+                    console.log(`工号为${this.id}的${this.name}老师在${this.time}给大家上课哦！TA是一位可爱的${this.sex}老师`)
+                }
+            };*/
+
+            let ClassInfo = (function(){
+                //老师类
+                let SingleTeacher = (function(){
+                    let ins = {};
+                    return class{
+                        constructor(id,name,sex){
+                            if( ins[id] )return ins[id];
+                            ins[id] = this;
+                            this.id = id;
+                            this.name = name;
+                            this.sex = sex;
+                        }
+                    }
+                })();
+
+                //接口类
+                return class{
+                    constructor(id,name,sex,time){
+                        this.teacher = new SingleTeacher(id,name,sex);
+                        this.time = time;
+                    }
+                    print(){
+                        console.log(`工号为${this.teacher.id}的${this.teacher.name}老师在${this.time}给大家上课哦！TA是一位可爱的${this.teacher.sex}老师`)
+                    }
+                };
+            })();
+
+
+            //本周的 100节排课
+            let week = [
+                new ClassInfo("1222","阿飞","男","周一14:00"),
+                new ClassInfo("456","无虑","男","周一15:00"),
+                new ClassInfo("7741","朱雀","女","周一20:00"),
+                new ClassInfo("1222","阿飞","男","周一20:30"),
+                new ClassInfo("1222","阿飞","男","周一22:00"),
+                new ClassInfo("1222","阿飞","男","周二14:00"),
+                new ClassInfo("666","朝歌","男","周二15:00"),
+                new ClassInfo("7741","朱雀","女","周二20:00"),
+                new ClassInfo("456","无虑","男","周二20:30"),
+                new ClassInfo("666","朝歌","男","周二20:40"),
+                new ClassInfo("1222","阿飞","男","周三14:00")
+                //……
+            ];
+
+            //console.log( week[0].teacher === week[3].teacher );
+            week[2].print();
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

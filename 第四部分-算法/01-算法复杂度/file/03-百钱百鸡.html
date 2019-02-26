@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+
+    <script>
+
+        /*
+        100文钱    要买   100只鸡
+        公鸡/5文    母鸡/3文     3小鸡/1文
+        每种鸡都要有
+         */
+
+        /*let x, y, z;
+        for(let x=1;x<100;x++){
+            for(let y=1;y<100;y++){
+                for(let z=1;z<100;z++){
+                    if( x+y+z === 100  && 5*x+3*y+z/3 === 100 ){
+                        console.log( `公鸡${x}只，母鸡${y}只，小鸡${z}只` );
+                    }
+                }
+            }
+        }
+        // 100*100*100 = 1000000
+        */
+
+        /*
+        //进行优化
+        let x, y, z;
+        for(let x=1;x<100;x++){
+            for(let y=1;y<100;y++){
+                let z = 100 - x - y;
+                if( 5*x+3*y+z/3 === 100 ){
+                    console.log( `2：公鸡${x}只，母鸡${y}只，小鸡${z}只` );
+                }
+            }
+        }
+        // 100*100 = 10000
+        */
+
+        //进一步优化
+        /*
+        x,y,z
+
+        x+y+z = 100  ①
+        5x+3y+z/3 = 100  ②
+
+        ②*3 =>
+              15x + 9y + z = 300  ③
+
+        ③-① => 14x + 8y = 200
+             =>  7x + 4y = 100
+             =>  4y = 100 - 7x;
+             =>   y = 25 - 7x/4;
+
+        设  k = x/4
+
+            x = 4k
+            y = 25 - 7k
+            z = 75 + 3k
+
+           k<25  k<4  k<9
+          */
+
+        let x, y, z;
+        for(let i=1;i<=3;i++){
+            let x = 4*i,
+                y = 25-7*i,
+                z = 75+3*i;
+            if(x+y+z === 100  && 5*x+3*y+z/3 === 100) {
+                console.log( `3：公鸡${x}只，母鸡${y}只，小鸡${z}只` );
+            }
+        }
+        //12
+
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

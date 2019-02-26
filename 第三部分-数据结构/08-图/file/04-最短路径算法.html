@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            广度优先
+            深度优先
+             */
+            //图结构 类
+            let Graph = (function(){
+                //队列类，辅助广度优先遍历
+                class Queue{
+                    constructor(){
+                        this.items = [];
+                    }
+                    enqueue(data){
+                        this.items.push(data);
+                    }
+                    dequeue(){
+                        return this.items.shift();
+                    }
+                    size(){
+                        return this.items.length;
+                    }
+                }
+
+                //图类
+                return class {
+                    constructor(){
+                        //存储所有顶点
+                        this.vertices = [];
+                        //存储每个顶点对应的相邻顶点（边）
+                        this.edges = {};
+                    }
+                    //添加顶点
+                    addVertex(...rest){
+                        rest.forEach(v=>{
+                            //如果顶点已经添加，return
+                            if( this.vertices.includes(v) )return;
+
+                            //顶点不存在
+                            //添加顶点
+                            this.vertices.push(v);
+                            //初始化顶点的边存储信息
+                            this.edges[v] = [];
+                        });
+                    }
+                    //添加边
+                    addEdge(v1,v2){
+                        //添加节点
+                        this.addVertex(v1,v2);
+                        //如果双方已经添加过对应的信息，返回
+                        if( this.edges[v1].includes(v2) )return;
+                        //双方互相添加边信息
+                        this.edges[v1].push(v2);
+                        this.edges[v2].push(v1);
+                    }
+                    //最短路径
+                    BFS(v){
+                        let vertices = this.vertices,
+                            edges = this.edges,
+                            color = [],
+                            queue = new Queue(),
+                            info = {}
+                        ;
+
+                        //状态初始化
+                        vertices.forEach(v=>{
+                            color[v] = "white";
+                        });
+
+                        //入口顶点入队 状态改变 初始信息
+                        queue.enqueue(v);
+                        color[v] = "grey";
+                        info[v] = {distance : 0, path : v};
+
+                        //发现与探索
+                        while (queue.size()){
+                            let u = queue.dequeue();
+                            edges[u].forEach(v=>{
+                                if(color[v]!=="white")return;
+                                color[v] = "grey";
+                                queue.enqueue(v);
+                                info[v] = {
+                                    distance : info[u].distance + 1,
+                                    path : info[u].path + "->" + v
+                                };
+                            });
+                            color[u] = "black";
+                        }
+
+
+                        /*
+                        返回信息的期望状态
+                        {
+                            "A" : {distance:0,path:"A"}
+                            "B" : {distance:1,path:"A-B"}
+                            "C" : {distance:1,path:"A-C"}
+                            "D" : {distance:2,path:"A-B-D"}
+                            "E" : {distance:1,path:"A-E"}
+                            "F" : {distance:2,path:"A-C-F"}
+                        }
+                         */
+                        return info;
+                    }
+                };
+            })();
+
+
+            let graph = new Graph;
+
+            graph.addEdge("A" , "B");
+            graph.addEdge("A" , "C");
+            graph.addEdge("A" , "E");
+            graph.addEdge("B" , "D");
+            graph.addEdge("B" , "E");
+            graph.addEdge("C" , "F");
+            graph.addEdge("E" , "F");
+
+            console.log(graph.BFS("D"));
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

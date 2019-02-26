@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+
+        <script src="state-machine.js"></script>
+        <script>
+
+            //console.log(StateMachine);
+            //状态机实例
+            let fsm = new StateMachine({
+                //初始状态
+                init: 'solid',
+
+                //状态切换的规律
+                transitions: [
+                    { name: 'melt',     from: 'solid',  to: 'liquid' },
+                    { name: 'freeze',   from: 'liquid', to: 'solid'  },
+                    { name: 'vaporize', from: 'liquid', to: 'gas'    },
+                    { name: 'condense', from: 'gas',    to: 'liquid' }
+                ],
+
+                //对应的需要执行的方法
+                methods: {
+                    onMelt:     function() { console.log('I melted')    },
+                    onFreeze:   function() { console.log('I froze')     },
+                    onVaporize: function() { console.log('I vaporized') },
+                    onCondense: function() { console.log('I condensed') }
+                }
+            });
+
+
+            document.onclick = function(){
+                console.log(fsm.state);
+            }
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

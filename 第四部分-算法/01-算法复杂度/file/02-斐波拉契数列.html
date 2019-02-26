@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+
+
+    <script>
+        /*
+        1 1 2 3 5 8 13 21 34 …
+         */
+
+        /*function fibonacci(n){
+            if(n === 1 || n === 2){
+                return 1;
+            }
+            return fibonacci(n-1) + fibonacci(n-2);
+        }
+        // O(2^n)
+        */
+
+
+        function fibonacci(n){
+            let n1 = 1,
+                n2 = 1,
+                r = 1;
+            for(let i=3;i<=n;i++){
+                r = n1 + n2;
+                n1 = n2;
+                n2 = r;
+            }
+            return r;
+        }
+        //O(n)
+
+        console.log(fibonacci(30));
+
+
+    </script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

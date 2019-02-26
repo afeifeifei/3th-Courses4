@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            .question{
+                margin-bottom: 20px
+            }
+        </style>
+    </head>
+    <body>
+        <div class="question">
+            <button class="btn">答案</button>
+            <div class="answer"></div>
+        </div>
+        <div class="question">
+            <button class="btn">答案</button>
+            <div class="answer"></div>
+        </div>
+        <div class="question">
+            <button class="btn">答案</button>
+            <div class="answer"></div>
+        </div>
+
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+
+            let $answer = $(".answer");
+            let $btn = $(".btn");
+            let data = [];
+
+            $btn.click(function(){
+                let id = $(this).parent().index()+1;
+
+                if( $answer.eq(id-1).html() ){
+                    $answer.eq(id-1).html("");
+                    return;
+                }
+
+                if( data[id] ){
+                    show(data[id],id);
+                }else{
+                    $.ajax({
+                        type : "POST",
+                        url : "http://wulv5.com/api/afei",
+                        data : {id},
+                        success(msg){
+                            console.log(msg);
+                            data[id] = msg;
+                            show(msg,id);
+                        }
+                    });
+                }
+
+
+            });
+
+
+            function show(msg,id){
+                $(".answer").eq(id-1).html(`
+                    <p>${msg.p1}</p>
+                    <p>${msg.p2}</p>
+                `);
+            }
+
+
+            /*$("#btn").click(function(){
+
+                $.ajax({
+                    type : "POST",
+                    url : "http://wulv5.com/api/afei",
+                    data : {id:"3"},
+                    success(msg){
+                        console.log(msg);
+                    }
+                });
+
+            });*/
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

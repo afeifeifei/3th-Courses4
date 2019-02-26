@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+
+        body{font-family: "Microsoft YaHei",serif;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+        html{
+            user-select: none;
+        }
+
+        #wrap{
+            overflow: hidden;
+            width: 1200px;
+            height: 368px;
+            margin: 50px auto;
+        }
+        #wrap ul{
+            width: 110%;
+        }
+        #wrap ul li{
+            float: left;
+            width: 200px;
+            height: 300px;
+            margin: 0 20px;
+        }
+        #wrap ul li .img{
+            width: 200px;
+            height: 250px;
+            background-position: center top;
+            background-size: cover;
+        }
+
+        /*#wrap .img img{
+            width: 100%;
+            height: 100%;
+        }*/
+
+        #wrap p{
+            width: 70%;
+            height: 34px;
+            margin: 5px auto;
+            border: 1px solid #bbb;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #wrap p.title{
+            width: 100%;
+            height:25px;
+            text-align: center;
+            border:none;
+            cursor: default;
+        }
+        #wrap p span{
+            display: block;
+            width: 100%;
+            height: 17px;
+            line-height: 17px;
+        }
+        #wrap p .a{
+            font-weight: bolder;
+        }
+        #wrap p.up .b{
+            color: #32bf7b;
+        }
+        #wrap p.down .b{
+            color: #db0916;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div id="wrap">
+    <ul>
+        <li class="item1">
+            <p class="title"></p>
+            <div class="img"></div>
+            <p class="up"><span class="a">Thumbs up</span><span><b class="b">0</b>推荐</span></p>
+            <p class="down"><span class="a">Thumbs down</span><span><b class="b">0</b>不推荐</span></p>
+        </li>
+        <li class="item2">
+            <p class="title"></p>
+            <div class="img"></div>
+            <p class="up"><span class="a">Thumbs up</span><span><b class="b">0</b>推荐</span></p>
+            <p class="down"><span class="a">Thumbs down</span><span><b class="b">0</b>不推荐</span></p>
+        </li>
+        <li class="item3">
+            <p class="title"></p>
+            <div class="img"></div>
+            <p class="up"><span class="a">Thumbs up</span><span><b class="b">0</b>推荐</span></p>
+            <p class="down"><span class="a">Thumbs down</span><span><b class="b">0</b>不推荐</span></p>
+        </li>
+        <li class="item4">
+            <p class="title"></p>
+            <div class="img"></div>
+            <p class="up"><span class="a">Thumbs up</span><span><b class="b">0</b>推荐</span></p>
+            <p class="down"><span class="a">Thumbs down</span><span><b class="b">0</b>不推荐</span></p>
+        </li>
+        <li class="item5">
+            <p class="title"></p>
+            <div class="img"></div>
+            <p class="up"><span class="a">Thumbs up</span><span><b class="b">0</b>推荐</span></p>
+            <p class="down"><span class="a">Thumbs down</span><span><b class="b">0</b>不推荐</span></p>
+        </li>
+    </ul>
+    </div>
+
+    <script>
+
+        let MVP = (function(){
+            //Model
+            let M = (function(){
+                //页面中数据
+                let data = {
+                    //pick模块对应的数据
+                    pick : [
+                        {
+                            name : "zhaoge",
+                            src : "zhaoge.png",
+                            up : 6990,
+                            down : 0
+                        },
+                        {
+                            name : "zhuque",
+                            src : "zhuque.jpg",
+                            up : 8,
+                            down : 0
+                        },
+                        {
+                            name : "wula",
+                            src : "wula.jpg",
+                            up : 0,
+                            down : 0
+                        },
+                        {
+                            name : "malian",
+                            src : "malian.jpg",
+                            up : 0,
+                            down : 0
+                        },
+                        {
+                            name : "mengqi",
+                            src : "mengqi.jpg",
+                            up : 0,
+                            down : 0
+                        }
+                    ],
+                    //其他的模块对应的数据
+                };
+                //返回接口
+                return {
+                    getData(){
+                        return [...data.pick];
+                    },
+                    setData(cb){
+                        cb(data.pick);
+                    }
+                }
+            })();
+
+            //View
+            let V = (function(){
+                let aTitle = [...document.querySelectorAll("#wrap p.title")],
+                    aImg = [...document.querySelectorAll("#wrap div.img")],
+                    aUp = [...document.querySelectorAll("#wrap p.up b.b")],
+                    aDown = [...document.querySelectorAll("#wrap p.down b.b")];
+                return {
+                    init(data){
+                        aTitle.forEach((v,i)=>{
+                            v.innerText = data[i].name;
+                            aImg[i].style.backgroundImage = "url(img/"+data[i].src+")";
+                        });
+                        this.update(data);
+                    },
+                    update(data){
+                        aUp.forEach((v,i)=>{
+                            v.innerText = data[i].up;
+                        });
+                        aDown.forEach((v,i)=>{
+                            v.innerText = data[i].down;
+                        });
+                    }
+                }
+            })();
+
+            //Presenter
+            let P = (function(){
+                //初始化视图
+                V.init(updateView());
+                //管理者代码
+                let aUpBtn = [...document.querySelectorAll("#wrap .up")],
+                    aDownBtn = [...document.querySelectorAll("#wrap .down")];
+                for(let i=0,len=aUpBtn.length;i<len;i++){
+                    aUpBtn[i].onclick = ()=>{
+                        fn("up",i);
+                    };
+                    aDownBtn[i].onclick = ()=>{
+                        fn("down",i);
+                    };
+                }
+                function fn(key,i){
+                    M.setData((data)=>{
+                        data[i][key] ++;
+                    });
+                    V.update(updateView());
+                }
+                function change(num){
+                    return Math.floor(num/1000) + "k";
+                }
+                function updateView(){
+                    let data = M.getData();
+                    data.forEach((v,i)=>{
+                        data[i] = {...data[i]};
+                        if( data[i].up >= 1000 ){
+                            data[i].up = change(data[i].up);
+                        }
+                        if( data[i].down >= 1000 ){
+                            data[i].down = change(data[i].down);
+                        }
+                    });
+                    return data;
+                }
+            })();
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

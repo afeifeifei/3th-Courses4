@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            // [键，值]
+            /*
+            ["afei" , "15575127515"]
+            ["zhuque" , "15512345678"]
+            ["xinai" , "16645789876"]
+             */
+
+            //模拟代码，不具实际运用意义，实际直接使用Map结构就可以了
+            let Map = (function(){
+                let symbol = Symbol();
+                return class{
+                    constructor(){
+                        this[symbol] = [];
+                    }
+                    set(key,value){
+                        //遍历以检测是否有存在
+                        for (let i = 0,len=this.size(); i < len; i++) {
+                            let item = this[symbol][i];
+                            if( item[0] === key ){
+                                item[1] = value;
+                                return;
+                            }
+                        }
+                        this[symbol].push([key,value]);
+                    }
+                    get(key){
+                        for (let i = 0,len=this.size(); i < len; i++) {
+                            let item = this[symbol][i];
+                            if( item[0] === key ){
+                                return item[1];
+                            }
+                        }
+                        return undefined;
+                    }
+                    delete(key){
+                        for (let i = 0,len=this.size(); i < len; i++) {
+                            let item = this[symbol][i];
+                            if( item[0] === key ){
+                                this[symbol].splice(i,1);
+                                break;
+                            }
+                        }
+                    }
+                    has(key){
+                        for (let i = 0,len=this.size(); i < len; i++) {
+                            let item = this[symbol][i];
+                            if( item[0] === key ){
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                    size(){
+                        return this[symbol].length;
+                    }
+                }
+            })();
+
+            let map = new Map();
+
+            map.set("afei" , "15575127515");
+            map.set("zhuque" , "777");
+            map.set("xinai" , "55555");
+
+            map.set("afei" , "155");
+
+            console.log(map);
+            console.log(map.get("zhuque"));
+            console.log(map.has("xinai"));
+            console.log(map.has("ZHAOGE"));
+            map.delete("afei");
+            console.log(map.size());
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+    
+    <script>
+
+        /*
+
+         */
+
+        function quickSort(arr){
+            let len = arr.length;
+            quick(arr,0,len-1);
+        }
+
+        function quick(arr,left,right){
+            let point = left;
+            let index = point+1;
+
+            for(let i = index; i <= right; i++) {
+                if( arr[i] < arr[point] ){
+                    swap(arr,i,index);
+                    index ++;
+                }
+            }
+
+            swap(arr,point,index-1);
+
+            index --;
+            let leftE = index-1;
+            let rightB = index+1;
+
+            if( leftE > left ){
+                quick(arr,point,leftE);
+            }
+            if( rightB < right){
+                quick(arr,rightB,right);
+            }
+
+        }
+        function swap(arr,i,j){
+            let tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+
+        function bucketSort (arr) {
+            let bucketSize = 10;
+            let len = arr.length;
+            let bucketArr = [];
+
+            for(let i = 0; i < len; i++)
+            {
+                let index = Math.floor(arr[i]/bucketSize);
+                if( !bucketArr[index] )bucketArr[index] = [];
+                bucketArr[index].push(arr[i]);
+            }
+
+            let j = 0;
+            for(let i = 0,len = bucketArr.length; i <len ; i++) {
+                let item = bucketArr[i];
+                if( !item )continue;
+                quickSort(item);
+                item.forEach(v=>{
+                    arr[j ++] = v;
+                });
+            }
+        }
+
+
+        let arr = [20,15,88,63,99,75,16,85,34];
+        bucketSort( arr );
+
+        console.log(arr);
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

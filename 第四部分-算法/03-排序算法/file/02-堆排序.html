@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="Author" content="阿飞飞">
+    <style>
+        *{margin:0;padding:0;font-family:"Microsoft YaHei",serif;}
+        ul,li,dl,dt,ol{list-style-type:none;}
+        
+    </style>
+</head>
+<body>
+    
+    <script>
+
+        function heapSort (arr) {
+            let len = arr.length;
+            for(let j = len; j > 1 ; j--) {
+                let i = Math.floor(j/2) - 1;
+                heap(arr,i,j);
+            }
+        }
+        function heap (arr,i,len) {
+            while ( i>=0 ){
+                let left = 2*i+1,
+                    right = 2*i+2;
+
+                let max = arr[i];
+                let maxIndex = i;
+
+                if( left < len && arr[left] > max ){
+                    max = arr[left];
+                    maxIndex = left;
+                }
+
+                if( right < len && arr[right] > max ){
+                    maxIndex = right;
+                }
+
+                swap(arr,i,maxIndex);
+
+                i--;
+            }
+
+            swap(arr,0,len-1);
+            //console.log(arr);
+        }
+        function swap(arr,i,j){
+            let tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+
+
+        let arr = [10,12,8,9,5,18,4,3,2,7,15,13,12,16];
+        heapSort(arr);
+
+        console.log(arr);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+

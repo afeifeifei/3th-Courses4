@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+
+    </style>
+</head>
+<body>
+    <div id="wrap"></div>
+
+    <script>
+        let BST = (function(){
+            let ROOT = Symbol();
+
+            //创建对应的类 来存储左右节点和自身
+            class Node{
+                constructor(key){
+                    this.key = key;
+                    this.left = null;
+                    this.right = null;
+                }
+            }
+
+            //用于插入的递归函数
+            function insertNode(root , node){
+                if( node.key < root.key  ){
+                    if( root.left ){
+                        insertNode(root.left,node);
+                    }else{
+                        root.left = node;
+                    }
+                }else{
+                    if( root.right ){
+                        insertNode(root.right,node);
+                    }else{
+                        root.right = node;
+                    }
+                }
+            }
+            
+            //找到右侧最小值
+            function getMin(root) {
+                while (root.left)root=root.left;
+                return root.key;
+            }
+            
+            //用于删除的递归函数
+            function removeNode(root,key) {
+                if( !root )return null;
+                if( key < root.key ){
+                    //要删除的节点  在左侧
+                    root.left = removeNode(root.left,key);
+                }else if(key > root.key){
+                    //要删除的节点  在右侧
+                    root.right = removeNode(root.right,key);
+                }else{
+                    //要删除的节点 为当前节点
+
+                    //要删除的节点，没有左右子节点
+                    if( !root.left && !root.right  ) {
+                        root = null;
+                        return root;
+                    }
+
+                    //要删除的节点，只有左节点，没有右节点
+                    if( !root.right && root.left ){
+                        root = root.left;
+                        return root;
+                    }
+
+                    //要删除的节点，只有右节点，没有左节点
+                    if( !root.left && root.right ){
+                        root = root.right
+                        return root;
+                    }
+
+                    //要删除的节点，既有左节点，又有右节点
+                    if( root.left && root.right ){
+                        let min = getMin(root.right);
+                        root.key = min;
+                        root.right = removeNode(root.right,min);
+                        return root;
+                    }
+                }
+                return root;
+            }
+
+            return class{
+                constructor(){
+                    this[ROOT] = null;
+                }
+                //插入
+                insert(key){
+                    let node = new Node(key)
+                    let Root = this[ROOT];
+                    if( !Root ){
+                        this[ROOT] = node;
+                    }else{
+                        insertNode(Root ,  node);
+                    }
+                }
+                
+                //删除
+                remove(key){
+                    removeNode(this[ROOT],key);
+                }
+            }
+        })();
+
+        let bst = new BST;
+
+        bst.insert(40);
+        bst.insert(20);
+        bst.insert(50);
+        bst.insert(10);
+        bst.insert(6);
+        bst.insert(11);
+        bst.insert(70);
+        bst.insert(60);
+        bst.insert(88);
+        bst.insert(99);
+        bst.insert(43);
+        bst.insert(12);
+        bst.insert(3);
+        bst.insert(57);
+        bst.insert(63);
+        bst.insert(76);
+
+        console.log(bst);
+        bst.remove(40)
+        bst.remove(70)
+        console.log(bst);
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

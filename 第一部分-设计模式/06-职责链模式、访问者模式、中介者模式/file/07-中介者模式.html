@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            //玩家类
+            class Player{
+                constructor(name,team) {
+                    this.name = name;//名字
+                    this.team = team;//队伍标识
+                    this.enemys = [];//敌对列表
+                    this.partners = [];//队友列表
+                    this.live =true;//存活状态
+                }
+                //胜利
+                win(){
+                    console.log(this.name + "胜利了！");
+                }
+                //失败
+                lose(){
+                    console.log(this.name + "失败了！");
+                }
+                //死亡时触发的信息
+                die(){
+                    //改变自己的存活状态
+                    this.live = false;
+                    //检测队友是否全部阵亡
+                    let ifAllDie = true;
+                    for (let i = 0; i < this.partners.length; i++) {
+                        if( this.partners[i].live ){
+                            ifAllDie = false;
+                            break;
+                        }
+                    }
+                    //如果全部阵亡，游戏结束
+                    if( ifAllDie ){
+                        //自己失败信息发送
+                        this.lose()
+                        //队友失败信息发送
+                        this.partners.forEach(p=>{
+                            p.lose();
+                        });
+                        //敌对胜利信息发送
+                        this.enemys.forEach(p=>{
+                            p.win();
+                        })
+                    }
+                }
+            }
+
+            //玩家工厂，借助这个工厂来做分组分信息的操作
+            let playerFactory = (function(){
+                //存储已经加入游戏的玩家
+                let allPlayers = [];
+                return function(name,team){
+                    let player = new Player(name,team);
+                    allPlayers.forEach(p=>{
+                        let which = p.team === team?"partners":"enemys";
+                        p[which].push(player);
+                        player[which].push(p);
+                    });
+                    allPlayers.push(player);
+                    return player;
+                }
+            })();
+
+
+            let p1 = playerFactory("阿飞","red");
+            let p2 = playerFactory("朱雀","red");
+            let p3 = playerFactory("心艾","red");
+            let p4 = playerFactory("乌拉","red");
+            let p5 = playerFactory("冰冰","blue");
+            let p6 = playerFactory("言心","blue");
+            let p7 = playerFactory("茜茜","blue");
+            let p8 = playerFactory("桃子","blue");
+
+            console.log(p1);
+
+            p1.die();
+            p2.die();
+
+            p8.die()
+            p7.die()
+            p6.die()
+            p5.die();
+
+
+
+
+            /*if( p.team === team ){
+               p.partners.push(player);
+               player.partners.push(p);
+           }else{
+               p.enemys.push(player);
+               player.enemys.push(p);
+           }*/
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

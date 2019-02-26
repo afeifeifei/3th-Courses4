@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+            //平衡二叉树
+            let AVL = (function(){
+                let ROOT = Symbol();
+                class Node{
+                    constructor(key){
+                        this.key = key;
+                        this.left = null;
+                        this.right = null;
+                    }
+                }
+
+                //插入节点
+                function insertNode(root,node) {
+                    if( !root )return node;
+                    if( node.key < root.key ){
+                        root.left = insertNode(root.left,node);
+
+                        //检测树深度失衡
+                        if( NodeDeep(root.left) - NodeDeep(root.right) > 1 ){
+                            if( node.key < root.left.key ){
+                                //左左
+                                root = LL(root);
+                            }else{
+                                //左右
+                                root = LR(root);
+                            }
+
+                        }
+                    }else{
+                        root.right = insertNode(root.right,node);
+                        //检测树深度失衡
+                        if( NodeDeep(root.right) - NodeDeep(root.left) > 1 ){
+                            if( node.key < root.right.key ){
+                                //右左
+								root = RL(root);
+							}else{
+								//右右
+								root = RR(root);
+                            }
+                        }
+                    }
+                    return root;
+                }
+
+                //计算树深度
+                function NodeDeep(node) {
+                    if(!node)return 0;
+                    return Math.max(NodeDeep(node.right),NodeDeep(node.left)) + 1;
+                }
+
+                //第一种情况，左左 LL
+                function LL(node) {
+                    let tmp = node.left;
+                    node.left = tmp.right;
+                    tmp.right = node;
+                    return tmp;
+                }
+
+                //第二种情况，右右 RR
+                function RR(node) {
+                    let tmp = node.right;
+                    node.right = tmp.left;
+                    tmp.left = node;
+                    return tmp;
+                }
+
+                //第三种情况，左右 LR
+                function LR(node) {
+                    node.left = RR(node.left);
+                    return LL(node);
+                }
+
+                //第四种情况，右左 RL
+                function RL(node) {
+                    node.right = LL(node.right);
+                    return RR(node);
+                }
+
+                return class {
+                    constructor(){}
+                    insert(key){
+                        this[ROOT] = insertNode(this[ROOT],new Node(key));
+                    }
+                }
+            })();
+
+
+            let avl = new AVL;
+
+            avl.insert(50)
+            avl.insert(30)
+            avl.insert(60)
+            avl.insert(58)
+            avl.insert(80)
+            avl.insert(59)
+            avl.insert(90)
+            avl.insert(100)
+
+
+
+            console.log(avl);
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

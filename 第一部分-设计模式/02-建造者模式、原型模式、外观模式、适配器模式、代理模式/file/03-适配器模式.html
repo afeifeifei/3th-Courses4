@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <table>
+                <tr>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <br>
+            <br>
+
+            <p>今天给大家讲课的是 <b></b>老师，年龄是 <i></i>，是一位 <b></b>老师哦！</p>
+            <p>今天给大家讲课的是 <b></b>老师，年龄是 <i></i>，是一位 <b></b>老师哦！</p>
+            <p>今天给大家讲课的是 <b></b>老师，年龄是 <i></i>，是一位 <b></b>老师哦！</p>
+        </div>
+
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+
+            /*
+            ["朱雀",18,"女"]
+            [
+                {
+                    name: "朱雀",
+                    age : 18,
+                    sex : "女"
+                },
+                {
+                    name ： "乌拉",
+                    age : 40,
+                    sex : "女"
+                },
+                {
+                    name ： "无虑",
+                    age : 50,
+                    sex : "男"
+                }
+            ]
+
+            */
+
+            new Promise((res,rej)=>{
+                $.ajax({
+                    type : "get",
+                    url : "http://120.79.198.114/login",
+                    dataType : "json",
+                    success(msg){
+                        //console.log(msg);
+
+                        //适配器1
+                        //msg = [msg.name,msg.age,msg.sex];
+
+                        //适配器2
+                        let m = [];
+                        msg.forEach((v)=>{
+                            m = [...m,...Object.values(v)];
+                        });
+
+                        //console.log(m);
+
+                        //调用后续代码
+                        res(m);
+                    },
+                    error(e){
+                        rej(e);
+                    }
+                });
+            })
+                .then(msg=>{
+
+                $("table tr td").each(function(i){
+                    $(this).html(msg[i]);
+                });
+                $("p").children().each(function(i){
+                    $(this).html(msg[i]);
+                })
+                //……
+
+                //console.log(msg);
+
+            })
+
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

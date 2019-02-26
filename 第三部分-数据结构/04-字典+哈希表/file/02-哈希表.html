@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            哈希表
+                哈希函数
+             */
+
+            let HashTable = (function(){
+                let symbol = Symbol();
+                //哈希函数
+                function HASH(key){
+                    let hash = 0;
+                    [...key].forEach(s=>{
+                        hash += s.charCodeAt(0);
+                    });
+                    return hash;
+                }
+
+                //类
+                return class{
+                    constructor(){
+                        this[symbol] = [];
+                    }
+                    set(key,value){
+                        this[symbol][HASH(key)] = value;
+                    }
+                    get(key){
+                        return this[symbol][HASH(key)];
+                    }
+                }
+            })();
+
+
+            let hash = new HashTable;
+
+            hash.set("afei" , "789")
+            hash.set("zhuque" , "123")
+            hash.set("xinai" , "234")
+
+            console.log(hash);
+            console.log(hash.get("xinai"));
+
+            /*
+            问题1   重复概率太大
+            问题2   数组长度的利用
+             */
+            hash.set("feia" , "951")
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

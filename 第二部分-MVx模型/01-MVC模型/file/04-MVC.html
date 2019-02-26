@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="keywords" content="关键词">
+    <meta name="description" content="描述">
+    <meta name="author" content="潭州教育-阿飞老师">
+    <style>
+        body{font-family: "Microsoft YaHei",serif;user-select:none;}
+        body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+        ol,ul,li{margin:0;padding:0;list-style:none;}
+        img{border:none;}
+        p{
+            margin: 10px 10px;
+        }
+        span{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <h3>我朱雀雀今天要吃水果！</h3>
+        <p class="buy">
+            买：
+            <input type="button" value="买个苹果">
+            <input type="button" value="买个梨子">
+        </p>
+        <p class="eat">
+            吃：
+            <input type="button" value="吃个苹果">
+            <input type="button" value="吃个梨子">
+        </p>
+        <p class="count">
+            <b>朱雀雀还剩：</b>
+            <span></span>个苹果，
+            <span></span>个梨子。
+        </p>
+        <p class="total">
+            <b>朱雀雀总共还有：</b>
+            <span></span>个水果。
+        </p>
+    </div>
+
+    <script>
+
+        let MVC = (function(){
+            /*
+        Model
+            当数据更新后，如何驱动View的变化？
+                --代理
+                --观察者模式
+        */
+            let M = (function(){
+                /*let data = {
+                    nApple : 0, //苹果计数
+                    nPear : 0 //梨子计数
+                };*/
+                let data = [0,0]; //[nApple,nPear]
+                //返回一些相关的操作接口
+                return {
+                    //数据更新接口
+                    update(i,b){
+                        //数据更新
+                        b?data[i]++:data[i]--;
+                        this.validate();
+                        /*if( b ){
+                            //数量增加操作
+                            data[i] ++;
+                        }else{
+                            //数量减少操作
+                            data[i] --;
+                        }*/
+                        //View的更新
+                        M.observer.emit([...data]);
+                    },
+                    //数据验证接口
+                    validate(){
+                        data.forEach((v,i)=>{
+                            //不得小于0
+                            if( v < 0 ){
+                                data[i] = 0;
+                                alert("都没了还吃！");
+                            }
+                            //不得大于99
+                            if( v > 99 ){
+                                data[i] = 99;
+                                alert("家里有矿啊？买这么多！");
+                            }
+                        });
+                    },
+                    //提供观察者接口
+                    observer : (function(){
+                        let arr =[];
+                        return {
+                            on(cb){
+                                arr.push(cb);
+                            },
+                            emit(d){
+                                arr.forEach(v=>v(d));
+                            }
+                        }
+                    })(),
+                    //获取数据接口
+                    getData(){
+                        return [...data];
+                    }
+                };
+            })();
+
+            /*
+            View
+            */
+            let V = (function(){
+                //对应的DOM的获取
+                let aCount = [...document.querySelectorAll(".count span")],
+                    oTotal = document.querySelector(".total span");
+                return {
+                    //视图的更新代码
+                    update(data){
+                        aCount.forEach((v,i)=>{
+                            v.innerText = data[i];
+                        });
+                        oTotal.innerText = data.reduce((a,b)=>a+b);
+                    }
+                };
+            })();
+
+            /*
+            Controller
+            */
+            let C = function(){
+                //对应DOM的获取
+                let aBuy = document.querySelectorAll(".buy input"),
+                    aEat = document.querySelectorAll(".eat input");
+                //事件的添加
+                [...aBuy].forEach((v,i)=>{
+                    v.onclick = function(){
+                        M.update(i,true);
+                    };
+                });
+                [...aEat].forEach((v,i)=>{
+                    v.onclick = function(){
+                        M.update(i,false);
+                    };
+                });
+            }
+            return{
+                init(){
+                    //初始化视图
+                    V.update(M.getData());
+                    //添加控制器
+                    C();
+                    //定于View的更新
+                    M.observer.on(V.update);
+                }
+            }
+        })();
+
+        //执行
+        MVC.init();
+
+
+
+        /*
+        //View 视图
+        let aCount = document.querySelectorAll(".count span"),
+            oTotal = document.querySelector(".total span");
+        function changeHTML(i){
+            aCount[i].innerText = i?nPear:nApple;
+            oTotal.innerText = nApple+nPear;
+        }
+
+
+        //Model 数据
+        let nApple = 0, //苹果计数
+            nPear = 0; //例子计数
+
+
+        //Controller 控制器
+        let aBuy = document.querySelectorAll(".buy input"),
+            aEat = document.querySelectorAll(".eat input");
+        [...aBuy].forEach((v,i)=>{
+            v.onclick = function(){
+                i?nPear++:nApple++;
+
+                //调用改变html结构的函数
+                changeHTML(i);
+            };
+        });
+        //吃
+        [...aEat].forEach((v,i)=>{
+            v.onclick = function(){
+                i?nPear--:nApple--;
+                if( nPear < 0 ){
+                    nPear = 0;
+                    alert("都没了还吃！！！胖死你！！");
+                }
+                if( nApple < 0 ){
+                    nApple = 0;
+                    alert("都没了还吃！！！胖死你！！");
+                }
+
+                //调用改变html结构的函数
+                changeHTML(i);
+            };
+        });*/
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

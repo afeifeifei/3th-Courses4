@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            /*
+            队列
+                先进先出
+
+                入队  enqueue
+                出队  dequeue
+                返回列首数据，但不删除  first
+                清空  clear
+                长度  size
+             */
+
+            let Queue = (function(){
+                let symbol = Symbol();
+                return class{
+                    constructor(){
+                        this[symbol] = [];
+                    }
+                    //入队  enqueue
+                    enqueue(ele){
+                        this[symbol].push(ele);
+                    }
+                    //出队  dequeue
+                    dequeue(){
+                        return this[symbol].shift();
+                    }
+                    //返回列首数据，但不删除  first
+                    first(){
+                        return this[symbol][0];
+                    }
+                    //清空  clear
+                    clear(){
+                        this[symbol] = [];
+                    }
+                    //长度  size
+                    size(){
+                        return this[symbol].length;
+                    }
+                    //按顺序输出队列数据 print
+                    print(){
+                        while (this.size())
+                            console.log( this.dequeue() );
+                    }
+                }
+            })();
+
+            let queue = new Queue();
+            queue.enqueue("阿飞");
+            queue.enqueue("乌拉");
+            queue.enqueue("朝歌");
+            queue.enqueue("朱雀");
+
+            queue.print();
+
+
+            let q2 = new Queue;
+            q2.enqueue("123")
+            q2.print();
+
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

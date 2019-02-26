@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="潭州教育-阿飞老师">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;user-select:none;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+
+            //菜品
+            class Item{
+                constructor(name,price,spicy){
+                    this.name = name;
+                    this.price = price;
+                    this.spicy = spicy;
+                }
+                print(){
+                    console.log( `菜名：${this.name}，单价：￥${this.price}，口味：${this.spicy}` );
+                }
+            }
+
+            //大类子菜单
+            class Category{
+                constructor(n){
+                    this.name = n;
+                    this.children = [];
+                }
+                add(item){
+                    this.children.push(item);
+                    return this;
+                }
+                print(){
+                    console.group(this.name+"：")
+                    this.children.forEach(v=>{
+                        v.print();
+                    });
+                    console.groupEnd();
+                }
+            }
+            //主菜单
+            class Menu{
+                constructor(id){
+                    this.id = id;
+                    this.children = [];
+                }
+                //添加大类子菜单
+                add(cate){
+                    this.children.push(cate);
+                    return this;
+                }
+                //打印
+                print(){
+                    console.group("第"+this.id+"桌的菜单：");
+                    this.children.forEach(v=>{
+                        v.print();
+                    });
+                    console.groupEnd();
+                }
+            };
+
+
+            let link = new Menu("66")
+                .add(
+                    new Category("主菜")
+                        .add(new Item("辣椒炒肉",20,"特辣"))
+                        .add(new Item("红烧肉",40,"/"))
+                        .add(new Item("竹笋炒肉",25,"微辣"))
+                        .add(new Item("白菜",5,"/"))
+                )
+                .add(
+                    new Category("甜品")
+                        .add(new Item("芋圆",10,"少糖"))
+                        .add(new Item("红豆糕",8,"/"))
+                )
+                .add(
+                    new Category("饮料")
+                        .add(new Item("括落",3,"/"))
+                        .add(new Item("写币",3,"/"))
+                        .add(new Item("凉白开",0,"/"))
+                );
+
+            link.print();
+
+
+
+
+            /*let a1 = new Item("辣椒炒肉",20,"特辣");
+            let a2 = new Item("红烧肉",40,"/");
+            let a3 = new Item("竹笋炒肉",25,"微辣");
+            let a4 = new Item("白菜",5,"/");
+            //a.print();
+            let a = new Category("主菜")
+                .add(a1)
+                .add(a2)
+                .add(a3)
+                .add(a4)
+            a.print();
+
+            let b1 = new Item("芋圆",10,"少糖");
+            let b2 = new Item("红豆糕",8,"/");
+            let b = new Category("甜品")
+                .add(b1)
+                .add(b2);
+            b.print();
+
+            let c1 = new Item("括落",3,"/");
+            let c2 = new Item("写币",3,"/");
+            let c3 = new Item("凉白开",0,"/");
+            let c = new Category("饮料")
+                .add(c1)
+                .add(c2)
+                .add(c3);
+            c.print();*/
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
